@@ -1,12 +1,24 @@
 <template>
   <div class="order">
-    <div class="columns is-mobile is-variable is-1-mobile is-2-tablet">
-        <div class="column is-three-quarters-mobile is-three-quarters-tablet is-three-quarters-desctop is-three-quarters-widescreen is-three-quarters-fullhd">
-            <div>First column</div>
+    <div class="columns">
+        <div class="column is-10">
+			first col
         </div>
-        <div class="column">
-            <div>Second column</div>
-        </div>
+        <div v-if="order && order.budget" class="column is-2">
+			<div class="card summary-sidebar">
+				<div class="summary-sidebar-card-content">
+					<h2>Sumár</h2>
+					<p class="header-summary-title">Celkom bez DPH</p>
+					<p class="header-summary-value">{{order.budget}}</p>
+					<p v-if="order.discountPrice" class="header-summary-title is-danger">Zľava {{order.discount}}%</p>
+					<p v-if="order.discountPrice" class="header-summary-value">{{order.discountValue}}</p>
+					<p v-if="order.discountPrice" class="header-summary-title">Cena po zľave bez DPH</p>
+					<div v-if="order.discountPrice" class="header-summary-title">{{order.discountPrice}}</div>
+					<p class="header-summary-title has-text-darkblue has-text-weight-bold "> K úhrade </p>
+					<p class="header-summary-value has-text-primary is-size-4">{{order.discountPrice}}</p>
+				</div>
+			</div>
+		</div>
     </div>
   </div>
 </template>
@@ -15,6 +27,12 @@
 
 export default {
     name: 'Order',
+
+	computed: {
+        order: function() {
+			return this.$store.state.order.order;
+		}
+	},
 
 	created() {
         axios.get('https://portal.lurity.com/api/v1/campaigns/7028f519b6a9fd42')
@@ -35,4 +53,7 @@ export default {
 
 @import "@/assets/panels.scss";
 
+.bb-dashed {
+	border-bottom: 1px dashed #778699;
+}
 </style>
