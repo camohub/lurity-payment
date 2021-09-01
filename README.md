@@ -19,15 +19,6 @@ npm run build
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-###Udaje k Braintree sandboxu 
-
-- environment: sandbox
-- merchantId: xxxxxxxxxxxxxxxxx
-- publicKey: xxxxxxxxxxxxxxxxxx
-- privateKey: xxxxxxxxxxxxxxxxxxxxx
-- login: https://sandbox.braintreegateway.com/login
-
-
 Payment
 =========
 To znamena:
