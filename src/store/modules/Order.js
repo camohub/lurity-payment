@@ -58,6 +58,18 @@ export default {
                 });
             }
 
+            // VAT
+            data.discountPricePlusVat = data.currency != 'CZK'
+                ? data.rawDiscountPrice + (data.rawDiscountPrice / 100 * 20)
+                : data.rawDiscountPrice;
+
+            data.discountPricePlusVat = data.discountPricePlusVat.toLocaleString('sk-SK', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                currency: data.currency,
+                style: 'currency'
+            });
+
             context.commit('SET_ORDER', data);
         },
     },

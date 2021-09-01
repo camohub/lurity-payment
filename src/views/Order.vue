@@ -12,17 +12,17 @@
 						<p class="header-summary-title">Celkom bez DPH</p>
 						<p class="header-summary-value">{{order.budgetPrice}}</p>
 					</div>
-					<div class="header-summary-item-text has-border">
-						<p v-if="order.discountPrice" class="header-summary-title is-danger">Zľava {{order.discount}}%</p>
-						<p v-if="order.discountPrice" class="header-summary-value">{{order.discountValue}}</p>
+					<div v-if="order.discount" class="header-summary-item-text has-border">
+						<p class="header-summary-title is-danger">Zľava {{order.discount}}%</p>
+						<p class="header-summary-value">{{order.discountValue}}</p>
 					</div>
-					<div class="header-summary-title has-text-darkblue has-text-weight-bold">
-						<p v-if="order.discountPrice" class="header-summary-title">Cena po zľave bez DPH</p>
-						<p v-if="order.discountPrice" class="header-summary-title">{{order.discountPrice}}</p>
+					<div v-if="order.discount" class="header-summary-title has-text-darkblue has-text-weight-bold">
+						<p class="header-summary-title">Cena po zľave bez DPH</p>
+						<p class="header-summary-title">{{order.discountPrice}}</p>
 					</div>
 					<div class="header-summary-item-text has-border">
 						<p class="header-summary-title has-text-darkblue has-text-weight-bold"> K úhrade </p>
-						<p class="header-summary-value has-text-primary is-size-4">{{order.discountPrice}}</p>
+						<p class="header-summary-value has-text-primary is-size-4">{{order.discountPricePlusVat}}</p>
 					</div>
 				</div>
 			</div>
