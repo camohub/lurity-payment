@@ -4,12 +4,12 @@ import router from './router'
 import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import './helpers/helpers'
 
 import axios from "axios"
 window.axios = axios
 
 //window.$ = window.jQuery = require('jquery');
-
 
 Vue.use(Buefy)
 

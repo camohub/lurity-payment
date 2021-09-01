@@ -18,14 +18,9 @@ export default {
 
     actions: {
 
-        setOrder(context, data) {
+        setOrder({ commit, dispatch }, data) {
 
-            data.budgetPrice = data.budget.toLocaleString('sk-SK', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-                currency: data.currency,
-                style: 'currency'
-            });
+            data.budgetPrice = setCurrency(data.budget, data.currency);
 
             if( data.discount )
             {
@@ -33,30 +28,15 @@ export default {
                 data.rawDiscountValue = (data.budget / 100 * data.discount);
                 data.rawDiscountPrice = data.budget - data.rawDiscountValue;
 
-                data.discountValue = data.rawDiscountPrice.toLocaleString('sk-SK', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                        currency: data.currency,
-                        style: 'currency'
-                    });
-                data.discountPrice = data.rawDiscountPrice.toLocaleString('sk-SK', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                    currency: data.currency,
-                    style: 'currency'
-                });
+                data.discountValue = setCurrency(data.rawDiscountPrice, data.currency);
+                data.discountPrice = setCurrency(data.rawDiscountPrice, data.currency);
             }
             else
             {
                 data.rawDiscountValue = 0;
                 data.rawDiscountPrice = data.budget;
                 data.discountValue = 0;
-                data.discountPrice = data.budget.toLocaleString('sk-SK', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                    currency: data.currency,
-                    style: 'currency'
-                });
+                data.discountPrice = setCurrency(data.budget, data.currency);
             }
 
             // VAT
@@ -64,14 +44,9 @@ export default {
                 ? data.rawDiscountPrice + (data.rawDiscountPrice / 100 * 20)
                 : data.rawDiscountPrice;
 
-            data.discountPricePlusVat = data.discountPricePlusVat.toLocaleString('sk-SK', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-                currency: data.currency,
-                style: 'currency'
-            });
+            data.discountPricePlusVat = setCurrency(data.discountPricePlusVat, data.currency);
 
-            context.commit('SET_ORDER', data);
+            commit('SET_ORDER', data);
         },
     },
 
