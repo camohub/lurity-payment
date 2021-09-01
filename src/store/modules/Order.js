@@ -19,7 +19,14 @@ export default {
     actions: {
 
         setOrder(context, data) {
-            console.log(data);
+
+            data.budgetPrice = data.budget.toLocaleString('sk-SK', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                currency: data.currency,
+                style: 'currency'
+            });
+
             if( data.discount )
             {
                 data.rawDiscountValue = (data.budget / 100 * data.discount);
