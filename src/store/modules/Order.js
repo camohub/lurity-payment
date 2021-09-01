@@ -29,6 +29,7 @@ export default {
 
             if( data.discount )
             {
+                // RAW - price in numer format
                 data.rawDiscountValue = (data.budget / 100 * data.discount);
                 data.rawDiscountPrice = data.budget - data.rawDiscountValue;
 
@@ -57,6 +58,18 @@ export default {
                     style: 'currency'
                 });
             }
+
+            // VAT
+            data.discountPricePlusVat = data.currency != 'CZK'
+                ? data.rawDiscountPrice + (data.rawDiscountPrice / 100 * 20)
+                : data.rawDiscountPrice;
+
+            data.discountPricePlusVat = data.discountPricePlusVat.toLocaleString('sk-SK', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                currency: data.currency,
+                style: 'currency'
+            });
 
             context.commit('SET_ORDER', data);
         },
