@@ -58,7 +58,6 @@ export default {
 				instance.requestPaymentMethod(function (err, payload) {
 					if( err )
 					{
-						alert('Nepodarilo sa aktivovať platobnú bránu');
 						console.log(err);
 						return;
 					}
