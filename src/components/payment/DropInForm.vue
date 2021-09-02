@@ -70,10 +70,13 @@
                             console.log(err);
                             return;
                         }
+
                         // Submit payload.nonce to your server
-                        payload.order = order;
-                        payload.amount = order.discountPricePlusVat;
-                        axios.post('http://localhost:8000/api/lurity-checkout', payload)
+                        console.log(payload);
+                        axios.post('http://localhost:8000/api/lurity-checkout', {
+                            amount: order.rawDiscountPricePlusVat,
+                            payment_method_nonce: payload.nonce,
+                        })
                             .then( response => {
                                 console.log(response);
                                 if( response.data?.message )

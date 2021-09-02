@@ -29,6 +29,26 @@
             </div>
         </div>
     </div>
+	<div class="columns">
+		<div class="column is-4">
+			378282246310005	American Express <br>
+			371449635398431	American Express <br>
+			36259600000004	Diners Club* <br>
+			6011000991300009	Discover <br>
+			3530111333300000	JCB <br>
+			6304000000000000	Maestro <br>
+			5555555555554444	Mastercard <br>
+			2223000048400011	Mastercard <br>
+			4111111111111111	Visa <br>
+			4005519200000004	Visa <br>
+			4009348888881881	Visa <br>
+			4012000033330026	Visa <br>
+			4012000077777777	Visa <br>
+			4012888888881881	Visa <br>
+			4217651111111119	Visa <br>
+			4500600000000061	Visa <br>
+		</div>
+	</div>
   </div>
 </template>
 
