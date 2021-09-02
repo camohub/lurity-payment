@@ -8,101 +8,82 @@
 
 <script>
 
-    import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import ApiRoutes from '@/router/ApiRoutes'
 
 
-    export default {
-        name: 'DropInForm',
+export default {
 
-        data() {
-            return {
+	name: 'DropInForm',
 
-            }
-        },
+	data() {
+		return {
 
-        methods: {
-            ...mapGetters( 'order', [ 'getOrder' ] ),
-            ...mapGetters( 'brainTreeGateway', [ 'getToken', 'getClient', 'getDropIn' ] ),
-            ...mapActions( 'brainTreeGateway', [ 'setToken', 'setClient', 'setDropIn' ] ),
-        },
+		}
+	},
 
-        mounted() {
-            let brainTreeDropIn = this.getDropIn();
-            let order = this.getOrder();
+	methods: {
+		...mapGetters( 'order', [ 'getOrder' ] ),
+		...mapGetters( 'brainTreeGateway', [ 'getToken', 'getClient', 'getDropIn' ] ),
+		...mapActions( 'brainTreeGateway', [ 'setToken', 'setClient', 'setDropIn' ] ),
+	},
 
-            let button = document.querySelector('#submit-button');
+	mounted() {
+		let brainTreeDropIn = this.getDropIn();
+		let order = this.getOrder();
+		let thisComponent = this;
 
-            brainTreeDropIn.create({
-                authorization: this.getToken(),
-                selector: '#dropin-container',
-                vaultManager: true,
-                /*paypal: {
-                    flow: 'checkout',
-                    amount: order.rawDiscountPricePlusVat,
-                    currency: order.currency
-                }*/
-            }, function (err, instance) {
-                if (err) {
-                    alert('Nepodarilo sa aktivovať platovnú bránu');
-                    console.log(err);
-                    return;
-                }
+		let button = document.querySelector('#submit-button');
 
-                /*brainTreeDropIn.dataCollector.create({
-                    client: clientInstance
-                }, function (err, dataCollectorInstance) {
-                    if (err) {
-                        // Handle error in creation of data collector
-                        return;
-                    }
-                    // At this point, you should access the dataCollectorInstance.deviceData value and provide it
-                    // to your server, e.g. by injecting it into your form as a hidden input.
-                    var deviceData = dataCollectorInstance.deviceData;
-                });*/
+		brainTreeDropIn.create({
+			authorization: this.getToken(),
+			selector: '#dropin-container',
+			vaultManager: true,
+			/*paypal: {
+				flow: 'checkout',
+				amount: order.rawDiscountPricePlusVat,
+				currency: order.currency
+			}*/
+		}, (err, instance) => {
+			if (err) {
+				alert('Nepodarilo sa aktivovať platovnú bránu');
+				console.log(err);
+				return;
+			}
 
-                // Test cards numbers
-                // https://developer.paypal.com/braintree/docs/reference/general/testing#card-numbers-with-type-indicators
-                button.addEventListener('click', function () {
-                    instance.requestPaymentMethod(function (err, payload) {
-                        if( err )
-                        {
-                            alert('Nepodarilo sa aktivovať platobnú bránu');
-                            console.log(err);
-                            return;
-                        }
+			// Test cards numbers
+			// https://developer.paypal.com/braintree/docs/reference/general/testing#card-numbers-with-type-indicators
+			button.addEventListener('click', () => {
+				instance.requestPaymentMethod(function (err, payload) {
+					if( err )
+					{
+						alert('Nepodarilo sa aktivovať platobnú bránu');
+						console.log(err);
+						return;
+					}
 
-                        // Submit payload.nonce to your server
-                        console.log(payload);
-                        axios.post('http://localhost:8000/api/lurity-checkout', {
-                            amount: order.rawDiscountPricePlusVat,
-                            payment_method_nonce: payload.nonce,
-                        })
-                            .then( response => {
-                                console.log(response);
-                                if( response.data?.message )
-                                {
-                                    alert(response.data.message);
-                                }
-                                else if ( response.data?.errors )
-                                {
-                                    console.log(response.data.errors);
-                                    alert(response.data.errors.join("\n"));
-                                }
-                                else
-                                {
-                                    console.log(response);
-                                }
-                            })
-                            .catch( error => {
-                                console.log(error);
-                                alert('Počas transakcie došlo k chybe.');
-                            });
-                    });
-                })
-            });
-        },
+					// Submit payload.nonce to your server
+					console.log(payload);
+					axios.post(ApiRoutes.PAYMENT_CHECKOUT_URL, {
+							//amount: order.rawDiscountPricePlusVat,
+							amount: 3000,
+							payment_method_nonce: payload.nonce,
+						})
+						.then( response => {
+							console.log(response);
+							if( response.data?.id ) thisComponent.$router.push({name: 'TransactionDone', params: {id: response.data.id}});
+							else if( response.data?.errors ) alert(response.data.errors.join("\n"));
+							else thisComponent.$router.push({name: 'TransactionDone'});
+						})
+						.catch( error => {
+                            thisComponent.$router.push({name: 'TransactionDone'});
+						});
+				});
+			})
+		});
+	},
 
-    }
+}
 </script>
 
 

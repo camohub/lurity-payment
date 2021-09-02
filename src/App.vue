@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Order</router-link> |
-      <router-link to="/payment-method">Payment method</router-link>
+      <router-link :to="{name: 'Order'}">Order</router-link> |
+      <router-link :to="{name: 'PaymentMethod'}">Payment method</router-link> |
+      <router-link :to="{name: 'TransactionDone'}">Transaction</router-link>
     </div>
     <router-view/>
   </div>

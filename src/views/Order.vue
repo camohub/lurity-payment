@@ -34,6 +34,7 @@
 <script>
 
 import { mapActions } from 'vuex'
+import ApiRoutes from '@/router/ApiRoutes'
 
 export default {
     name: 'Order',
@@ -49,7 +50,7 @@ export default {
 	},
 
 	created() {
-        axios.get('https://portal.lurity.com/api/v1/campaigns/7028f519b6a9fd42')
+        axios.get(ApiRoutes.PAYMENT_CAMPAIGN_URL)
             .then( response => {
                 this.setOrder(response.data);
             })

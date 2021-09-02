@@ -48,6 +48,19 @@
 			4217651111111119	Visa <br>
 			4500600000000061	Visa <br>
 		</div>
+		<div class="col is-4">
+			0.01 - 1999.99	Authorized	Settled<br>
+			2000.00 - 2999.99	Processor Declined with a processor response equal to the amount	n/a<br>
+			3000.00 - 3000.99	Failed with a 3000 processor response	n/a<br>
+			3001.00 - 4000.99	Authorized	Settled<br>
+			4001.00 - 4001.99	Authorized	Settlement Declined on certain transaction types with a processor response equal to the amount; Settled on all others<br>
+			4002.00 - 4002.99	Authorized	Settlement Pending on PayPal transactions with a processor response equal to the amount; Settled on all others<br>
+			4003.00 - 5000.99	Authorized	Settlement Declined on certain transaction types with a processor response equal to the amount; Settled on all others<br>
+			5001.00	Gateway Rejected with a reason of Application Incomplete	n/a<br>
+			5001.01	Processor Declined on PayPal transactions in the Mocked PayPal flow with a 2038 processor response. Authorized on all others	n/a on PayPal transactions; Settled on all others<br>
+			5001.02	Authorized	Processor Unavailable on certain transaction types with a processor response of 3000; Settled on all others<br>
+			5002.00 and up	Authorized	Settled<br>
+		</div>
 	</div>
   </div>
 </template>
@@ -58,10 +71,11 @@
 import CardForm from '@/components/payment/CardForm'
 import DropInForm from '@/components/payment/DropInForm'
 import { mapGetters, mapActions } from 'vuex'
+import ApiRoutes from '@/router/ApiRoutes'
 
 
 export default {
-    name: 'Order',
+    name: 'PaymentMethod',
 
     data() {
         return {
@@ -75,7 +89,7 @@ export default {
         ...mapActions( 'brainTreeGateway', [ 'setToken', 'setClient', 'setDropIn' ] ),
 
         getToken() {
-            return axios.get('http://localhost:8000/api/lurity-gateway-client-token')
+            return axios.get(ApiRoutes.PAYMENT_CLIENT_TOKEN_URL)
                 .then( response => {
                     if( response.data.clientToken )
                     {
