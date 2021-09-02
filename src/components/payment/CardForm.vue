@@ -13,7 +13,7 @@
         <div id="postal-code" class="hosted-field"></div>
 
         <div class="button-container">
-            <input type="submit" class="button button--small button--green" value="Purchase" id="submit"/>
+            <input type="submit" class="button is-success" value="Purchase" id="submit"/>
         </div>
     </form>
 </template>

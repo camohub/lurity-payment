@@ -52,7 +52,9 @@ export default {
 
 
     getters: {
-
+        getOrder(state) {
+            return state.order;
+        }
     }
 
 }

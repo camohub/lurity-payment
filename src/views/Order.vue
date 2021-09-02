@@ -1,5 +1,5 @@
 <template>
-  <div class="order">
+  <div class="order container is-fluid">
     <div class="columns">
         <div class="column is-10">
 			first col
@@ -66,7 +66,4 @@ export default {
 
 @import "@/assets/panels.scss";
 
-.bb-dashed {
-	border-bottom: 1px dashed #778699;
-}
 </style>
