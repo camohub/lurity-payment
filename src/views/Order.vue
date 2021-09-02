@@ -33,6 +33,8 @@
 
 <script>
 
+import { mapActions } from 'vuex'
+
 export default {
     name: 'Order',
 
@@ -42,11 +44,14 @@ export default {
 		}
 	},
 
+	methods: {
+		...mapActions('order', ['setOrder']),
+	},
+
 	created() {
         axios.get('https://portal.lurity.com/api/v1/campaigns/7028f519b6a9fd42')
             .then( response => {
-                console.log(response)
-                this.$store.dispatch('order/setOrder', response.data)
+                this.setOrder(response.data);
             })
             .catch( error => {
                 alert('API request error')

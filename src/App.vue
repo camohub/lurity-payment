@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Order</router-link> |
-      <router-link to="/about">Payment method</router-link>
+      <router-link to="/payment-method">Payment method</router-link>
     </div>
     <router-view/>
   </div>

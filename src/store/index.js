@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import order from './modules/Order'
+import brainTreeGateway from './modules/BrainTreeGateway'
 
 
 export default new Vuex.Store({
@@ -19,5 +20,6 @@ export default new Vuex.Store({
 
     modules: {
         order: order,
+        brainTreeGateway: brainTreeGateway,
     }
 })
