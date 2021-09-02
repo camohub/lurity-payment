@@ -7,6 +7,7 @@ export default {
         token: null,
         client: null,
         hostedFields: null,
+        dropIn: null,
     }),
 
 
@@ -17,6 +18,12 @@ export default {
         SET_CLIENT(state) {
             state.client = require('braintree-web/client');
             state.hostedFields = require('braintree-web/hosted-fields');
+            state.dropIn = require('braintree-web-drop-in');
+        },
+        SET_DROP_IN(state) {
+            console.log('set drop in');
+            state.dropIn = require('braintree-web-drop-in');
+            console.log(state.dropIn);
         },
     },
 
@@ -27,6 +34,9 @@ export default {
         },
         setClient({commit}) {
             commit('SET_CLIENT');
+        },
+        setDropIn({commit}) {
+            commit('SET_DROP_IN');
         },
     },
 
@@ -40,6 +50,9 @@ export default {
         },
         getHostedFields(state) {
             return state.hostedFields;
+        },
+        getDropIn(state) {
+            return state.dropIn;
         },
     }
 
