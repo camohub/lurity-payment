@@ -1,10 +1,10 @@
 <template>
   <div class="order container is-fluid">
     <div class="columns">
-        <div class="column is-10">
+        <div class="column is-10 has-text-centered">
 			<div class="card middle">Order detail...</div>
         </div>
-        <div v-if="order && order.budget" class="column is-2">
+        <div v-if="order && order.budget" class="column is-2 has-text-centered">
 			<div class="card summary-sidebar middle p-4">
 				<div class="summary-sidebar-card-content">
 					<h2>Sumár</h2>
