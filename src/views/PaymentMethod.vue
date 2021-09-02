@@ -3,10 +3,10 @@
     <h1>Payment method</h1>
     <div class="columns">
         <div class="column is-10">
-            <div v-if="hasToken" class="card p-10"><DropInForm /></div>
+            <div v-if="hasToken" class="card p-4"><DropInForm /></div>
         </div>
         <div v-if="order" class="column is-2">
-            <div class="card summary-sidebar middle">
+            <div class="card summary-sidebar middle p-4">
                 <div class="summary-sidebar-card-content">
                     <h2>Sumár</h2>
                     <div class="header-summary-item-text has-border">

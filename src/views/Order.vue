@@ -2,10 +2,10 @@
   <div class="order container is-fluid">
     <div class="columns">
         <div class="column is-10">
-			first col
+			<div class="card middle">Order detail...</div>
         </div>
         <div v-if="order && order.budget" class="column is-2">
-			<div class="card summary-sidebar">
+			<div class="card summary-sidebar middle p-4">
 				<div class="summary-sidebar-card-content">
 					<h2>Sumár</h2>
 					<div class="header-summary-item-text has-border">
@@ -66,5 +66,14 @@ export default {
 <style lang="scss" scoped>
 
 @import "@/assets/panels.scss";
+
+.column {
+	display: table;
+	.middle {
+		padding: 14px;
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
 
 </style>
