@@ -3,7 +3,7 @@
     <h1>Payment method</h1>
     <div class="columns">
         <div class="column is-10">
-            <div v-if="hasTokenAndDropIn" class="card p-10"><DropInForm /></div>
+            <div v-if="hasToken" class="card p-10"><DropInForm /></div>
         </div>
         <div v-if="order" class="column is-2">
             <div class="card summary-sidebar middle">
@@ -45,7 +45,7 @@ export default {
 
     data() {
         return {
-            hasTokenAndDropIn: false,
+            hasToken: false,
         }
     },
 
@@ -54,14 +54,13 @@ export default {
         ...mapGetters( 'brainTreeGateway', [ 'getToken', 'getClient', 'getDropIn' ] ),
         ...mapActions( 'brainTreeGateway', [ 'setToken', 'setClient', 'setDropIn' ] ),
 
-        getTokenAndSetDropIn() {
+        getToken() {
             return axios.get('http://localhost:8000/api/lurity-gateway-client-token')
                 .then( response => {
                     if( response.data.clientToken )
                     {
                         this.setToken(response.data.clientToken);
-                        this.setDropIn();
-                        this.hasTokenAndDropIn = true;
+                        this.hasToken = true;
                     }
                     else
                     {
@@ -76,7 +75,8 @@ export default {
 
     created() {
         this.order = this.getOrder();
-        this.getTokenAndSetDropIn();
+        this.getToken();
+        this.setDropIn();
     },
 
     components: {
