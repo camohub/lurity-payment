@@ -40,11 +40,11 @@ export default {
             }
 
             // VAT
-            data.discountPricePlusVat = data.currency != 'CZK'
+            data.rawDiscountPricePlusVat = data.currency != 'CZK'
                 ? data.rawDiscountPrice + (data.rawDiscountPrice / 100 * 20)
                 : data.rawDiscountPrice;
 
-            data.discountPricePlusVat = setCurrency(data.discountPricePlusVat, data.currency);
+            data.discountPricePlusVat = setCurrency(data.rawDiscountPricePlusVat, data.currency);
 
             commit('SET_ORDER', data);
         },
