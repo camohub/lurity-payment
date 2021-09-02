@@ -18,12 +18,9 @@ export default {
         SET_CLIENT(state) {
             state.client = require('braintree-web/client');
             state.hostedFields = require('braintree-web/hosted-fields');
-            state.dropIn = require('braintree-web-drop-in');
         },
         SET_DROP_IN(state) {
-            console.log('set drop in');
             state.dropIn = require('braintree-web-drop-in');
-            console.log(state.dropIn);
         },
     },
 
