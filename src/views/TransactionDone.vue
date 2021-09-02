@@ -4,13 +4,13 @@
 			<div class="column is-6">
 				<div class="card summary-sidebar middle p-4">
 					<div class="summary-sidebar-card-content">
-						<div v-if="success" class="header-summary-title has-text-darkblue has-text-weight-bold">
+						<div v-if="success" class="notification is-success">
 							<p class="header-summary-title">Platba prebehla úspešne</p>
 							<p class="header-summary-title">Ďakujeme!</p>
 						</div>
-						<div v-if="!success" class="header-summary-title has-text-darkblue has-text-weight-bold">
+						<div v-if="!success" class="notification is-danger">
 							<p class="header-summary-title">Platba neprebehla</p>
-							<p class="header-summary-title"></p>
+							<p v-if="errors" v-for="error, index in errors" :key="index" class="header-summary-title">{{error}}</p>
 						</div>
 					</div>
 				</div>
@@ -147,6 +147,7 @@ export default {
 		return {
 			transactionDetails: null,
 			success: false,
+			errors: null,
 		}
 	},
 
@@ -155,7 +156,8 @@ export default {
 		{
 			axios.get(ApiRoutes.PAYMENT_TRANSACTION_URL + this.id)
 				.then(response => {
-					this.success = true;
+					this.success = response.data?.success ? true : false;
+					if( response.data?.errors ) this.errors = response.data.errors;
 					this.transactionDetails = response.data.transactionDetails;
 					console.log('done response');
 					console.log(response);
