@@ -68,11 +68,21 @@
                         console.log('instance.requestPaymentMethod() payload');
                         console.log(payload);
                         if( error ) alert('Nepodarilo sa aktivovať platobnú bránu');
-                        axios.post('http://localhost:8000/api/lurity-gatewayNonce', payload)
+                        axios.post('http://localhost:8000/api/lurity-checkout', payload)
                             .then( response => {
-                                if( response.data?.message ) alert(response.data.message);
-                                else if ( response.data?.error ) alert(response.data.error);
-                                else console.log(response);
+                                if( response.data?.message )
+                                {
+                                    alert(response.data.message);
+                                }
+                                else if ( response.data?.errors )
+                                {
+                                    console.log(response.data.errors);
+                                    alert(response.data.errors.join("\n"));
+                                }
+                                else
+                                {
+                                    console.log(response);
+                                }
                             })
                             .catch( error => {
                                 console.log(error);
