@@ -2,6 +2,7 @@
     <div class="">
         <div id="dropin-container"></div>
         <button id="submit-button" class="button is-success">Zaplatiť</button>
+        <input v-model="customAmount" type="text" id="customAmount" class="input" placeholder="amount">
     </div>
 </template>
 
@@ -18,7 +19,7 @@ export default {
 
 	data() {
 		return {
-
+			customAmount: 10,
 		}
 	},
 
@@ -66,7 +67,7 @@ export default {
 					console.log(payload);
 					axios.post(ApiRoutes.PAYMENT_CHECKOUT_URL, {
 							//amount: order.rawDiscountPricePlusVat,
-							amount: 3000,
+							amount: thisComponent.customAmount,
 							payment_method_nonce: payload.nonce,
 						})
 						.then( response => {
