@@ -3,7 +3,7 @@
     <h1>Payment method</h1>
     <div class="columns">
         <div class="column is-10">
-            <div v-if="token && dropIn" class="card p-10"><DropInForm /></div>
+            <div v-if="hasTokenAndDropIn" class="card p-10"><DropInForm /></div>
         </div>
         <div v-if="order" class="column is-2">
             <div class="card summary-sidebar middle">
@@ -45,8 +45,7 @@ export default {
 
     data() {
         return {
-			token: this.getToken(),
-			dropIn: this.getDropIn(),
+            hasTokenAndDropIn: false,
         }
     },
 
@@ -62,6 +61,7 @@ export default {
                     {
                         this.setToken(response.data.clientToken);
                         this.setDropIn();
+                        this.hasTokenAndDropIn = true;
                     }
                     else
                     {
