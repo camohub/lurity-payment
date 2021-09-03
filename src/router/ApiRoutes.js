@@ -1,4 +1,5 @@
-let API_URL_SHORT = 'http://localhost:8000';
+//let API_URL_SHORT = 'http://localhost:8000';
+let API_URL_SHORT = 'https://laravel-sandbox.tatrytec.eu';
 let API_URL = API_URL_SHORT + '/';
 
 
