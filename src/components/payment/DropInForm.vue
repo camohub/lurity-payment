@@ -2,7 +2,7 @@
     <div class="">
         <div id="dropin-container"></div>
         <button id="submit-button" class="button is-success">Zaplatiť</button>
-        <input v-model="customAmount" type="text" id="customAmount" class="input" placeholder="amount">
+        <input v-model="customAmount" type="text" id="customAmount" class="input mt-2" placeholder="amount">
     </div>
 </template>
 

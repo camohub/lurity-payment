@@ -3,7 +3,11 @@
     <h1>Payment method</h1>
     <div class="columns">
         <div class="column is-10">
-            <div v-if="hasToken" class="card p-4"><DropInForm /></div>
+            <div class="card middle p-4">
+				<div v-if="hasToken" >
+					<DropInForm />
+				</div>
+			</div>
         </div>
         <div v-if="order" class="column is-2 has-text-centered">
             <div class="card summary-sidebar middle p-4">
@@ -124,7 +128,7 @@ export default {
 
 <style lang="scss" scoped>
 
-.column.is-2 {
+.column.is-2, .column.is-10 {
     display: table;
     .middle {
         padding: 14px;
