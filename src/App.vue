@@ -2,8 +2,7 @@
 	<div id="app">
 		<div id="nav" class="has-text-centered">
 			<router-link :to="{name: 'Order'}">Order</router-link> |
-			<router-link :to="{name: 'PaymentMethod'}">Payment method</router-link> |
-			<router-link :to="{name: 'TransactionDone'}">Transaction</router-link>
+			<router-link :to="{name: 'PaymentMethod'}">Payment method</router-link>
 		</div>
 		<router-view/>
 	</div>
