@@ -15,73 +15,74 @@ import ApiRoutes from '@/router/ApiRoutes'
 
 export default {
 
-	name: 'DropInForm',
+    name: 'DropInForm',
 
-	data() {
-		return {
-			customAmount: 10,
-		}
-	},
+    data() {
+        return {
+            customAmount: 10,
+        }
+    },
 
-	methods: {
-		...mapGetters( 'order', [ 'getOrder' ] ),
-		...mapGetters( 'brainTreeGateway', [ 'getToken', 'getClient', 'getDropIn' ] ),
-		...mapActions( 'brainTreeGateway', [ 'setToken', 'setClient', 'setDropIn' ] ),
-	},
+    methods: {
+        ...mapGetters( 'order', [ 'getOrder' ] ),
+        ...mapGetters( 'brainTreeGateway', [ 'getToken', 'getClient', 'getDropIn' ] ),
+        ...mapActions( 'brainTreeGateway', [ 'setToken', 'setClient', 'setDropIn' ] ),
+    },
 
-	mounted() {
-		let brainTreeDropIn = this.getDropIn();
-		let order = this.getOrder();
-		let thisComponent = this;
+    mounted() {
+        let brainTreeDropIn = this.getDropIn();
+        let order = this.getOrder();
+        let thisComponent = this;
 
-		let button = document.querySelector('#submit-button');
+        let button = document.querySelector('#submit-button');
 
-		brainTreeDropIn.create({
-			authorization: this.getToken(),
-			selector: '#dropin-container',
-			vaultManager: true,
-			/*paypal: {
-				flow: 'checkout',
-				amount: order.rawDiscountPricePlusVat,
-				currency: order.currency
-			}*/
-		}, (err, instance) => {
-			if (err) {
-				alert('Nepodarilo sa aktivovať platovnú bránu');
-				console.log(err);
-				return;
-			}
+        brainTreeDropIn.create({
+            authorization: this.getToken(),
+            selector: '#dropin-container',
+            vaultManager: true,
+            locale: 'sk_SK',
+            /*paypal: {
+                flow: 'checkout',
+                amount: order.rawDiscountPricePlusVat,
+                currency: order.currency
+            }*/
+        }, (err, instance) => {
+            if (err) {
+                alert('Nepodarilo sa aktivovať platovnú bránu');
+                console.log(err);
+                return;
+            }
 
-			// Test cards numbers
-			// https://developer.paypal.com/braintree/docs/reference/general/testing#card-numbers-with-type-indicators
-			button.addEventListener('click', () => {
-				instance.requestPaymentMethod(function (err, payload) {
-					if( err )
-					{
-						console.log(err);
-						return;
-					}
+            // Test cards numbers
+            // https://developer.paypal.com/braintree/docs/reference/general/testing#card-numbers-with-type-indicators
+            button.addEventListener('click', () => {
+                instance.requestPaymentMethod(function (err, payload) {
+                    if( err )
+                    {
+                        console.log(err);
+                        return;
+                    }
 
-					// Submit payload.nonce to your server
-					console.log(payload);
-					axios.post(ApiRoutes.PAYMENT_CHECKOUT_URL, {
-							//amount: order.rawDiscountPricePlusVat,
-							amount: thisComponent.customAmount,
-							payment_method_nonce: payload.nonce,
-						})
-						.then( response => {
-							console.log(response);
-							if( response.data?.id ) thisComponent.$router.push({name: 'TransactionDone', params: {id: response.data.id}});
-							else if( response.data?.errors ) alert(response.data.errors.join("\n"));
-							else thisComponent.$router.push({name: 'TransactionDone'});
-						})
-						.catch( error => {
+                    // Submit payload.nonce to your server
+                    console.log(payload);
+                    axios.post(ApiRoutes.PAYMENT_CHECKOUT_URL, {
+                            //amount: order.rawDiscountPricePlusVat,
+                            amount: thisComponent.customAmount,
+                            payment_method_nonce: payload.nonce,
+                        })
+                        .then( response => {
+                            console.log(response);
+                            if( response.data?.id ) thisComponent.$router.push({name: 'TransactionDone', params: {id: response.data.id}});
+                            else if( response.data?.errors ) alert(response.data.errors.join("\n"));
+                            else thisComponent.$router.push({name: 'TransactionDone'});
+                        })
+                        .catch( error => {
                             thisComponent.$router.push({name: 'TransactionDone'});
-						});
-				});
-			})
-		});
-	},
+                        });
+                });
+            })
+        });
+    },
 
 }
 </script>
