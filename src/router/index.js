@@ -23,7 +23,12 @@ const routes = [
         name: 'TransactionDone',
         props: true,
         component: () => import(/* webpackChunkName: "about" */ '../views/TransactionDone.vue')
-    }
+    },
+    {
+        path: '/maps',
+        name: 'Maps',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Maps.vue')
+    },
 ]
 
 const router = new VueRouter({

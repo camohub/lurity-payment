@@ -72,3 +72,10 @@ Idealne riesenie by bolo, keby bol krok 2 a 3 spojeny do jedneho.
 To znamena ze zaplatenim sa rovno karta aj ulozi. Tak ako to je na tom 
 obrazky vyssie. To znamena, ze buttony Zaplatit a 
 Zrusit by sa presunuli z praveho stlpca do laveho (pod pridanie karty).
+
+
+
+Otázky
+------
+1. Ako implementovať alerty?
+2. Ako napojiť preklad? 
